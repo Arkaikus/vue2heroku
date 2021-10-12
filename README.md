@@ -55,3 +55,5 @@
 > ![](img/6.png)
 - Or deploy manually
 > ![](img/7.png)
+- Success should look like this
+- > ![](img/8.png)
