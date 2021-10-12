@@ -1,59 +1,30 @@
 # Vue2Heroku Example
 
-## Repo Setup
+## Vuejs Setup
 
-- If vuejs app is in current folder then add engine and start commands
-
-```json
-{
-    ...
-    "engines": {
-        "node": "14.x"
-    },
-    ...
-    "scripts": {
-        ...
-        "start": "npm run serve",
-        ...
-    },
-    ...
-}
-```
-- If vuejs app is in some folder like frontend then run `npm init` to generate `package.json` and add
-
+- Create `static.json` file in vuejs app folder, in this example `frontend`
 
 ```json
 {
-    ...
-    "engines": {
-        "node": "14.x"
-    },
-    ...
-    "scripts": {
-        ...
-        "start": "cd frontend && npm run serve",
-        ...
-    },
-    ...
+    "root": "dist",
+    "clean_urls": true,
+    "routes": {
+        "/**": "index.html"
+    }
 }
 ```
+- Install [HerokuCLI](https://devcenter.heroku.com/articles/heroku-cli#download-and-install)
+- Open terminal in repo folder
+- Run
 
-- Create `Procfile` and add `web: npm start`
+```bash
+heroku login
+heroku create <app-name>
+heroku buildpacks:set https://github.com/timanovsky/subdir-heroku-buildpack
+heroku buildpacks:add heroku/nodejs
+heroku buildpacks:add https://github.com/heroku/heroku-buildpack-static
+heroku config:set PROJECT_PATH=frontend --app <app-name>
+git push heroku main
+```
 
-## Herkou Setup
-
-- Sign in to heroku
-> ![](img/1.png)
-- Create an app
-> ![](img/2.png)
-- Connect to github repo
-> ![](img/3.png)
-- Search repo and connect
-> ![](img/4.png)
-> ![](img/5.png)
-- Enable automatic deploy
-> ![](img/6.png)
-- Or deploy manually
-> ![](img/7.png)
-- Success should look like this
-- > ![](img/8.png)
+- **It's recommended using heroku client to specify buildpacks**
